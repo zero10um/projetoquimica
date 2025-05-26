@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reações Exotérmicas e Endotérmicas - Termoquímica</title>
+    <div class="tema-toggle">
+        <button id="toggle-tema" aria-label="Alternar tema">
+            <span class="tema-icon-light">☀️</span>
+            <span class="tema-icon-dark">🌙</span>
+        </button>
+    </div>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/reacoes.js"></script>
+</head>
+<script src="js/progresso.js"></script>
+
+<body>
+    <header>
+        <h1>Reações Exotérmicas e Endotérmicas</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="simulacoes.html">Simulações</a></li>
+                <li><a href="reacoes.html">Reações</a></li>
+                <li><a href="conteudo.html">Conteúdo</a></li>
+                <li><a href="quiz.html">Quiz</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="progresso-container">
+    </section>
+    <main>
+        <section class="controles">
+            <h2>Simulador de Reações Termoquímicas</h2>
+            <p>Observe as diferenças entre reações exotérmicas (que liberam energia) e endotérmicas (que absorvem
+                energia):</p>
+
+            <div class="tipo-reacao">
+                <button id="btn-exotermica" class="botao ativo">Reação Exotérmica</button>
+                <button id="btn-endotermica" class="botao">Reação Endotérmica</button>
+            </div>
+
+            <div class="simulacao-controles">
+                <label for="velocidade-reacao">Velocidade da Reação:</label>
+                <input type="range" id="velocidade-reacao" min="1" max="10" value="5" step="1">
+            </div>
+
+            <div class="info-reacao">
+                <div id="energia-reacao">Variação de Energia (ΔH): -92 kJ/mol</div>
+                <div id="temperatura-sistema">Temperatura do Sistema: Aumentando ↑</div>
+            </div>
+        </section>
+
+        <section class="visualizacao">
+            <div id="reacao-container"></div>
+
+            <div class="legenda">
+                <div><span class="dot vermelho"></span> Reagentes</div>
+                <div><span class="dot azul"></span> Produtos</div>
+                <div><span class="dot amarelo"></span> Energia</div>
+            </div>
+
+            <div class="diagrama-energia">
+                <h3>Diagrama de Energia</h3>
+                <div id="diagrama-container"></div>
+            </div>
+        </section>
+
+        <section class="explicacao">
+            <h3>Sobre as Reações Exotérmicas e Endotérmicas</h3>
+
+            <div class="tabs">
+                <button class="tab-btn ativo" data-tab="exotermica">Reações Exotérmicas</button>
+                <button class="tab-btn" data-tab="endotermica">Reações Endotérmicas</button>
+                <button class="tab-btn" data-tab="exemplos">Exemplos Cotidianos</button>
+            </div>
+
+            <div id="exotermica" class="tab-content ativo">
+                <p>Nas <strong>reações exotérmicas</strong>, a energia é <em>liberada</em> para o ambiente. Isso
+                    acontece porque a energia dos produtos é menor que a energia dos reagentes.</p>
+                <p>Características principais:</p>
+                <ul>
+                    <li>Libera calor para o ambiente</li>
+                    <li>ΔH < 0 (variação de entalpia negativa)</li>
+                    <li>A temperatura do sistema aumenta</li>
+                    <li>As ligações formadas são mais estáveis que as ligações rompidas</li>
+                </ul>
+                <p>Exemplos: combustão, neutralização ácido-base, oxidação de metais.</p>
+            </div>
+
+            <div id="endotermica" class="tab-content">
+                <p>Nas <strong>reações endotérmicas</strong>, a energia é <em>absorvida</em> do ambiente. Isso ocorre
+                    porque a energia dos produtos é maior que a energia dos reagentes.</p>
+                <p>Características principais:</p>
+                <ul>
+                    <li>Absorve calor do ambiente</li>
+                    <li>ΔH > 0 (variação de entalpia positiva)</li>
+                    <li>A temperatura do sistema diminui</li>
+                    <li>As ligações formadas são menos estáveis que as ligações rompidas</li>
+                </ul>
+                <p>Exemplos: fotossíntese, evaporação da água, dissolução do sulfato de amônio em água.</p>
+            </div>
+
+            <div id="exemplos" class="tab-content">
+                <h4>Exemplos de Reações Exotérmicas no dia a dia:</h4>
+                <ul>
+                    <li><strong>Combustão de gás de cozinha</strong>: quando acendemos o fogão, a queima do gás libera
+                        energia na forma de calor e luz.</li>
+                    <li><strong>Compressas quentes</strong>: contêm substâncias que, ao reagirem, liberam calor.</li>
+                    <li><strong>Respiração celular</strong>: processo pelo qual nosso corpo obtém energia dos alimentos.
+                    </li>
+                </ul>
+
+                <h4>Exemplos de Reações Endotérmicas no dia a dia:</h4>
+                <ul>
+                    <li><strong>Compressas frias</strong>: contêm sais que, ao se dissolverem, absorvem calor.</li>
+                    <li><strong>Fotossíntese</strong>: plantas absorvem energia solar para converter CO₂ e água em
+                        glicose e oxigênio.</li>
+                    <li><strong>Gelo instantâneo</strong>: bolsas que, quando ativadas, produzem sensação de frio por
+                        meio de reações endotérmicas.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h3>Termoquímica Interativa</h3>
+                <p>Educação química através de simulações visuais</p>
+            </div>
+
+            <div class="footer-separador"></div>
+
+            <div class="footer-desenvolvedor">
+                <p class="desenvolvedor">Desenvolvido por</p>
+                <p class="assinatura-principal">Verônica da Costa Gonçalves</p>
+                <br>
+                <p class="assinatura-principal">Leonardo Ribeiro</p>
+                <br>
+                <p class="assinatura-principal">Ana Clara Oya</p>
+                <br>
+                <p class="assinatura-principal">Francislene Aparecida</p>
+                <br>
+                <p class="assinatura-principal">Izartson Rob Inocencio</p>
+                <br>
+                <p class="desenvolvedor-ano">2025</p>
+            </div>
+        </div>
+
+        <div class="footer-copyright">
+            <p>Desenvolvido para auxílio educacional</p>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulações - Termoquímica</title>
+    <div class="tema-toggle">
+        <button id="toggle-tema" aria-label="Alternar tema">
+            <span class="tema-icon-light">☀️</span>
+            <span class="tema-icon-dark">🌙</span>
+        </button>
+    </div>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/simulacoes.js"></script>
+</head>
+<script src="js/progresso.js"></script>
+
+<body>
+    <header>
+        <h1>Simulações Termoquímicas</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="simulacoes.html">Simulações</a></li>
+                <li><a href="reacoes.html">Reações</a></li>
+                <li><a href="conteudo.html">Conteúdo</a></li>
+                <li><a href="quiz.html">Quiz</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="progresso-container">
+    </section>
+    <div class="instrucoes-card">
+        <div class="instrucoes-icon">💡</div>
+        <div class="instrucoes-conteudo">
+            <h4>Como usar esta simulação</h4>
+            <ol>
+                <li>Use o controle deslizante para ajustar a temperatura da água</li>
+                <li>Observe como as moléculas mudam seu comportamento</li>
+                <li>Note as mudanças de estado físico em diferentes temperaturas</li>
+                <li>Leia a explicação que muda conforme a temperatura</li>
+            </ol>
+        </div>
+    </div>
+    <main>
+        <section class="controles">
+            <h2>Aquecimento da Água</h2>
+            <p>Observe o comportamento das moléculas de água ao serem aquecidas:</p>
+
+            <div class="simulacao-controles">
+                <div class="controle-grupo">
+                    <label for="temperatura">Temperatura:</label>
+                    <div class="controle-slider">
+                        <input type="range" id="temperatura" min="0" max="150" value="25" step="1">
+                        <span id="valor-temperatura" class="valor-temperatura">25°C</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-estado">
+                <p>Estado atual: <span id="estado-agua">Líquido</span></p>
+                <p>Energia cinética média: <span id="energia-cinetica">Moderada</span></p>
+            </div>
+        </section>
+
+        <section class="visualizacao">
+            <div id="simulacao-container"></div>
+            <div class="legenda">
+                <p><span class="dot azul"></span> Molécula de água (H₂O)</p>
+                <p><span class="dot vermelho"></span> Alta energia cinética</p>
+            </div>
+        </section>
+
+        <section class="explicacao">
+            <h3>O que está acontecendo?</h3>
+            <p id="explicacao-texto">
+                Nesta temperatura (25°C), as moléculas de água estão no estado líquido.
+                Elas possuem energia cinética suficiente para se mover, mas não o suficiente para quebrar
+                completamente as ligações de hidrogênio entre si.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h3>Termoquímica Interativa</h3>
+                <p>Educação química através de simulações visuais</p>
+            </div>
+
+            <div class="footer-separador"></div>
+
+            <div class="footer-desenvolvedor">
+                <p class="desenvolvedor">Desenvolvido por</p>
+                <p class="assinatura-principal">Verônica da Costa Gonçalves</p>
+                <br>
+                <p class="assinatura-principal">Leonardo Ribeiro</p>
+                <br>
+                <p class="assinatura-principal">Ana Clara Oya</p>
+                <br>
+                <p class="assinatura-principal">Francislene Aparecida</p>
+                <br>
+                <p class="assinatura-principal">Izartson Rob Inocencio</p>
+                <br>
+                <p class="desenvolvedor-ano">2025</p>
+            </div>
+        </div>
+
+        <div class="footer-copyright">
+            <p>Desenvolvido para auxílio educacional</p>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Termoquímica</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <meta name="description" content="Teste seus conhecimentos em termoquímica com este quiz interativo">
+    <meta name="keywords" content="termoquímica, quiz, química, educação">
+    <meta name="author" content="Leonardo Ribeiro">
+</head>
+
+<body>
+    <header>
+        <div class="tema-toggle">
+            <button id="toggle-tema" aria-label="Alternar tema">
+                <span class="tema-icon-light"><i class="fas fa-sun"></i></span>
+                <span class="tema-icon-dark"><i class="fas fa-moon"></i></span>
+            </button>
+        </div>
+
+        <h1>Quiz de Termoquímica</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="simulacoes.html">Simulações</a></li>
+                <li><a href="reacoes.html">Reações</a></li>
+                <li><a href="conteudo.html">Conteúdo</a></li>
+                <li><a href="quiz.html" class="active">Quiz</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="progresso-container" class="progresso-secao">
+        </section>
+
+        <section class="quiz-container">
+            <div id="identificacao-quiz" class="identificacao-container">
+                <h2><i class="fas fa-user-check"></i> Identificação</h2>
+                <p>Antes de iniciar o quiz, preencha seus dados para participar do ranking:</p>
+
+                <div id="erro-email" class="mensagem-erro escondido">
+                    <i class="fas fa-exclamation-circle"></i> Este email já foi utilizado anteriormente. Por favor, use
+                    outro email.
+                </div>
+
+                <form id="form-identificacao" class="form-quiz">
+                    <div class="form-grupo">
+                        <label for="nome">Nome Completo:</label>
+                        <input type="text" id="nome" name="nome" required placeholder="Digite seu nome completo">
+                    </div>
+
+                    <div class="form-grupo">
+                        <label for="email">E-mail:</label>
+                        <input type="email" id="email" name="email" required placeholder="Digite seu e-mail">
+                    </div>
+
+                    <div class="form-grupo">
+                        <label for="turma">Turma:</label>
+                        <input type="text" id="turma" name="turma" required placeholder="Ex: 2º Ano I">
+                    </div>
+
+                    <button type="submit" id="btn-identificacao" class="botao btn-iniciar-quiz">
+                        <i class="fas fa-play-circle"></i> Iniciar Quiz
+                    </button>
+                </form>
+            </div>
+
+            <div id="inicio-quiz" class="escondido">
+                <h2>Teste seus conhecimentos!</h2>
+                <p>Este quiz contém 10 questões sobre termoquímica. Vamos ver quanto você aprendeu!</p>
+                <button id="iniciar-quiz" class="botao">Iniciar Quiz</button>
+            </div>
+
+            <div id="questao-container" class="escondido">
+                <div class="progresso-quiz">
+                    <div class="progresso-quiz-texto">Questão <span id="questao-atual">1</span> de 10</div>
+                    <div class="progresso-quiz-barra-container">
+                        <div class="progresso-quiz-barra" style="width: 10%"></div>
+                    </div>
+                </div>
+
+                <h3 id="numero-questao">Questão 1</h3>
+                <p id="texto-questao">Texto da questão aqui...</p>
+
+                <div class="alternativas">
+                    <div class="alternativa">
+                        <input type="radio" name="resposta" id="opcaoA" value="A">
+                        <label for="opcaoA" id="labelA">Alternativa A</label>
+                    </div>
+                    <div class="alternativa">
+                        <input type="radio" name="resposta" id="opcaoB" value="B">
+                        <label for="opcaoB" id="labelB">Alternativa B</label>
+                    </div>
+                    <div class="alternativa">
+                        <input type="radio" name="resposta" id="opcaoC" value="C">
+                        <label for="opcaoC" id="labelC">Alternativa C</label>
+                    </div>
+                    <div class="alternativa">
+                        <input type="radio" name="resposta" id="opcaoD" value="D">
+                        <label for="opcaoD" id="labelD">Alternativa D</label>
+                    </div>
+                </div>
+
+                <button id="proxima-questao" class="botao">Próxima</button>
+            </div>
+
+            <div id="resultado-quiz" class="escondido">
+                <h2>Resultado Final</h2>
+                <div class="resultado-info">
+                    <div class="resultado-card">
+                        <div class="resultado-titulo">Acertos</div>
+                        <div class="resultado-valor" id="numero-acertos">0</div>
+                        <div class="resultado-total">de 10 questões</div>
+                    </div>
+                </div>
+
+                <div id="feedback">
+                </div>
+
+                <div class="resultado-acoes">
+                    <button id="ver-ranking" class="botao">Ver Ranking</button>
+                    <button id="refazer-quiz" class="botao">Tentar Novamente</button>
+                </div>
+            </div>
+
+            <div id="ranking-container" class="escondido">
+                <h2>Ranking de Participantes</h2>
+
+                <div class="filtro-ranking">
+                    <label for="filtro-turma">Filtrar por turma:</label>
+                    <select id="filtro-turma">
+                        <option value="todas">Todas as turmas</option>
+                        <option value="1º Ano A">1º Ano A</option>
+                        <option value="1º Ano B">1º Ano B</option>
+                        <option value="2º Ano A">2º Ano A</option>
+                        <option value="2º Ano B">2º Ano B</option>
+                        <option value="3º Ano A">3º Ano A</option>
+                        <option value="3º Ano B">3º Ano B</option>
+                    </select>
+                </div>
+
+                <div class="tabela-container">
+                    <table class="ranking-tabela">
+                        <thead>
+                            <tr>
+                                <th>Posição</th>
+                                <th>Nome</th>
+                                <th>Turma</th>
+                                <th>Pontuação</th>
+                                <th>Data</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ranking-body">
+                        </tbody>
+                    </table>
+                </div>
+
+                <button id="voltar-quiz" class="botao">Voltar</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h3>Termoquímica Interativa</h3>
+                <p>Educação química através de simulações visuais</p>
+            </div>
+
+            <div class="footer-separador"></div>
+
+            <div class="footer-desenvolvedor">
+                <p class="desenvolvedor">Desenvolvido por</p>
+                <p class="assinatura-principal">Leonardo Ribeiro</p>
+                <p class="desenvolvedor-ano">2023</p>
+            </div>
+        </div>
+
+        <div class="footer-copyright">
+            <p>Desenvolvido para auxílio educacional</p>
+        </div>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+<script type="module">
+  import firebaseConfig from './firebase-config.js';
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+
+  const app = initializeApp(firebaseConfig);
+</script>
+
+    <script src="js/quiz.js"></script>
+    <script src="js/progresso.js"></script>
+</body>
+
+</html>
