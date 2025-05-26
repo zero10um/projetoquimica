@@ -1,3 +1,6 @@
+
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 const firebaseConfig = {
   apiKey: "AIzaSyCglbisvT2JJeN_aXqV_tIND3Dem6iryP8",
   authDomain: "termoquimica-quiz.firebaseapp.com",
@@ -9,4 +12,6 @@ const firebaseConfig = {
   measurementId: "G-LCWFZ0TCZ7"
 };
 
-export default firebaseConfig;
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
