@@ -16,13 +16,13 @@
 
 <body>
     <header>
-        <div class="tema-toggle">
-            <button id="toggle-tema" aria-label="Alternar tema">
-                <span class="tema-icon-light"><i class="fas fa-sun"></i></span>
-                <span class="tema-icon-dark"><i class="fas fa-moon"></i></span>
-            </button>
-        </div>
-        <h1>Quiz de Termoquímica</h1>
+    <div class="tema-toggle">
+        <button id="toggle-tema" aria-label="Alternar tema">
+            <span class="tema-icon-light">☀️</span>
+            <span class="tema-icon-dark">🌙</span>
+        </button>
+    </div>
+        <h1>Quiz de Termoquímica</h1>   
         <nav>
             <ul>
                 <li><a href="index.html">Início</a></li>
@@ -38,32 +38,41 @@
         <section id="progresso-container" class="progresso-secao"></section>
 
         <section class="quiz-container">
-            <div id="identificacao-quiz" class="identificacao-container">
-                <h2><i class="fas fa-user-check"></i> Identificação</h2>
-                <p>Antes de iniciar o quiz, preencha seus dados para participar do ranking:</p>
+<div id="identificacao-quiz" class="identificacao-container">
+    <h2><i class="fas fa-user-check"></i> Identificação</h2>
+    <p>Antes de iniciar o quiz, preencha seus dados para participar do ranking:</p>
 
-                <div id="erro-email" class="mensagem-erro escondido">
-                    <i class="fas fa-exclamation-circle"></i> Este email já foi utilizado anteriormente. Por favor, use outro email.
-                </div>
+    <div id="erro-email" class="mensagem-erro escondido">
+        <i class="fas fa-exclamation-circle"></i> Este email já foi utilizado anteriormente. Por favor, use outro email.
+    </div>
 
-                <form id="form-identificacao" class="form-quiz">
-                    <div class="form-grupo">
-                        <label for="nome">Nome Completo:</label>
-                        <input type="text" id="nome" name="nome" required placeholder="Digite seu nome completo" />
-                    </div>
-                    <div class="form-grupo">
-                        <label for="email">E-mail:</label>
-                        <input type="email" id="email" name="email" required placeholder="Digite seu e-mail" />
-                    </div>
-                    <div class="form-grupo">
-                        <label for="turma">Turma:</label>
-                        <input type="text" id="turma" name="turma" required placeholder="Ex: 2º Ano I" />
-                    </div>
-                    <button type="submit" id="btn-identificacao" class="botao btn-iniciar-quiz">
-                        <i class="fas fa-play-circle"></i> Iniciar Quiz
-                    </button>
-                </form>
-            </div>
+    <form id="form-identificacao" class="form-quiz">
+        <div class="form-grupo">
+            <label for="nome">Nome Completo:</label>
+            <input type="text" id="nome" name="nome" required placeholder="Digite seu nome completo" />
+        </div>
+        <div class="form-grupo">
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required placeholder="Digite seu e-mail" />
+        </div>
+        <div class="form-grupo">
+            <label for="turma">Turma:</label>
+            <input type="text" id="turma" name="turma" required placeholder="Ex: 2º Ano I" />
+        </div>
+        <div class="form-acoes">
+            <button type="submit" id="btn-identificacao" class="botao btn-iniciar-quiz">
+                <i class="fas fa-play-circle"></i> Iniciar Quiz
+            </button>
+        </div>
+    </form>
+    
+    <!-- Botão para ver ranking sem completar o quiz -->
+    <div class="opcoes-adicionais">
+        <button id="ver-ranking-inicial" class="botao botao-secundario">
+            <i class="fas fa-trophy"></i> Ver Ranking
+        </button>
+    </div>
+</div>
 
             <div id="inicio-quiz" class="escondido">
                 <h2>Teste seus conhecimentos!</h2>
@@ -144,10 +153,18 @@
                 <h3>Termoquímica Interativa</h3>
                 <p>Educação química através de simulações visuais</p>
             </div>
-            <div class="footer-separador"></div>
             <div class="footer-desenvolvedor">
                 <p class="desenvolvedor">Desenvolvido por</p>
+                <p class="assinatura-principal">Verônica da Costa Gonçalves</p>
+                <br>
                 <p class="assinatura-principal">Leonardo Ribeiro</p>
+                <br>
+                <p class="assinatura-principal">Ana Clara Oya</p>
+                <br>
+                <p class="assinatura-principal">Francislene Aparecida</p>
+                <br>
+                <p class="assinatura-principal">Izartson Rob Inocencio</p>
+                <br>
                 <p class="desenvolvedor-ano">2025</p>
             </div>
         </div>

@@ -1,3 +1,4 @@
+// Banco de questões
 const questoes = [
     {
         pergunta: "Durante a fotossíntese, as plantas absorvem energia luminosa para converter CO₂ e H₂O em glicose. Esse processo é classificado como:",
@@ -101,14 +102,14 @@ const questoes = [
     }
 ];
 
-// Variáveis para controlar o quiz
 let questaoAtual = 0;
 let acertos = 0;
 let dadosUsuario = null;
 let tempoInicio = null;
 let tempoConclusao = null;
 
-// Referência ao banco de dados do Firebase
+window.acessoRankingDireto = false;
+
 let database, rankingRef;
 try {
     database = firebase.database();
@@ -122,12 +123,17 @@ try {
 document.addEventListener('DOMContentLoaded', function () {
     console.log("Documento carregado, inicializando quiz...");
 
+    const erroEmail = document.getElementById('erro-email');
+    if (erroEmail) {
+        erroEmail.classList.add('escondido');
+        erroEmail.style.display = 'none';
+    }
+
     inicializarElementos();
     adicionarEventListeners();
 });
 
 function inicializarElementos() {
-    // Registra os elementos no console para debug
     console.log("Elementos da página:", {
         identificacaoQuiz: document.getElementById('identificacao-quiz'),
         formIdentificacao: document.getElementById('form-identificacao'),
@@ -152,12 +158,12 @@ function adicionarEventListeners() {
             const email = document.getElementById('email').value;
             const turma = document.getElementById('turma').value;
 
-            // Verificar se o email já existe no Firebase
             verificarEmailExistente(email)
                 .then(existente => {
                     if (existente) {
                         const erroEmail = document.getElementById('erro-email');
                         erroEmail.classList.remove('escondido');
+                        erroEmail.style.display = 'block';
                         erroEmail.classList.add('shake');
 
                         setTimeout(() => {
@@ -166,7 +172,9 @@ function adicionarEventListeners() {
 
                         document.getElementById('email').focus();
                     } else {
+                        const erroEmail = document.getElementById('erro-email');
                         erroEmail.classList.add('escondido');
+                        erroEmail.style.display = 'none';
 
                         dadosUsuario = {
                             nome: nome,
@@ -179,6 +187,7 @@ function adicionarEventListeners() {
                         document.getElementById('identificacao-quiz').classList.add('escondido');
                         document.getElementById('questao-container').classList.remove('escondido');
 
+                        // Iniciar o quiz
                         tempoInicio = new Date().getTime();
                         mostrarQuestao();
                     }
@@ -202,76 +211,21 @@ function adicionarEventListeners() {
         console.error("Formulário de identificação não encontrado!");
     }
 
-    function verificarEmailExistente(email) {
-        return new Promise((resolve, reject) => {
-            if (!rankingRef) {
-                const ranking = JSON.parse(localStorage.getItem('termoquimica_ranking')) || [];
-                const emailExistente = ranking.some(item => item.email.toLowerCase() === email.toLowerCase());
-                resolve(emailExistente);
-                return;
+    const btnVerRankingInicial = document.getElementById('ver-ranking-inicial');
+    if (btnVerRankingInicial) {
+        btnVerRankingInicial.addEventListener('click', function() {
+            window.acessoRankingDireto = true;
+            
+            document.getElementById('identificacao-quiz').classList.add('escondido');
+            
+            document.getElementById('ranking-container').classList.remove('escondido');
+            
+            carregarRanking('todas');
+            
+            const filtroTurma = document.getElementById('filtro-turma');
+            if (filtroTurma) {
+                filtroTurma.value = 'todas';
             }
-
-            rankingRef.orderByChild('email').equalTo(email).once('value')
-                .then(snapshot => {
-                    resolve(snapshot.exists());
-                })
-                .catch(error => {
-                    console.error("Erro ao verificar email:", error);
-                    reject(error);
-                });
-        });
-    }
-
-    function popularFiltroTurmas() {
-        const filtroTurma = document.getElementById('filtro-turma');
-        if (!filtroTurma) return;
-
-        while (filtroTurma.options.length > 1) {
-            filtroTurma.remove(1);
-        }
-
-        if (rankingRef) {
-            rankingRef.once('value')
-                .then(snapshot => {
-                    const turmas = new Set();
-
-                    snapshot.forEach(childSnapshot => {
-                        const turma = childSnapshot.val().turma;
-                        if (turma) turmas.add(turma);
-                    });
-
-                    turmas.forEach(turma => {
-                        const option = document.createElement('option');
-                        option.value = turma;
-                        option.textContent = turma;
-                        filtroTurma.appendChild(option);
-                    });
-                })
-                .catch(error => {
-                    console.error("Erro ao carregar turmas:", error);
-                    popularFiltroTurmasLocalStorage();
-                });
-        } else {
-            popularFiltroTurmasLocalStorage();
-        }
-    }
-
-    function popularFiltroTurmasLocalStorage() {
-        const filtroTurma = document.getElementById('filtro-turma');
-        if (!filtroTurma) return;
-
-        const ranking = JSON.parse(localStorage.getItem('termoquimica_ranking')) || [];
-        const turmas = new Set();
-
-        ranking.forEach(item => {
-            if (item.turma) turmas.add(item.turma);
-        });
-
-        turmas.forEach(turma => {
-            const option = document.createElement('option');
-            option.value = turma;
-            option.textContent = turma;
-            filtroTurma.appendChild(option);
         });
     }
 
@@ -299,10 +253,11 @@ function adicionarEventListeners() {
     const btnVerRanking = document.getElementById('ver-ranking');
     if (btnVerRanking) {
         btnVerRanking.addEventListener('click', function () {
+            window.acessoRankingDireto = false;
+            
             document.getElementById('resultado-quiz').classList.add('escondido');
             document.getElementById('ranking-container').classList.remove('escondido');
-            popularFiltroTurmas(); // Popula o filtro de turmas
-            carregarRanking();     // Carrega o ranking
+            carregarRanking('todas');
         });
     }
 
@@ -310,7 +265,13 @@ function adicionarEventListeners() {
     if (btnVoltarQuiz) {
         btnVoltarQuiz.addEventListener('click', function () {
             document.getElementById('ranking-container').classList.add('escondido');
-            document.getElementById('resultado-quiz').classList.remove('escondido');
+            
+            if (window.acessoRankingDireto) {
+                document.getElementById('identificacao-quiz').classList.remove('escondido');
+                window.acessoRankingDireto = false; 
+            } else {
+                document.getElementById('resultado-quiz').classList.remove('escondido');
+            }
         });
     }
 
@@ -320,6 +281,79 @@ function adicionarEventListeners() {
             carregarRanking(this.value);
         });
     }
+}
+
+function verificarEmailExistente(email) {
+    return new Promise((resolve, reject) => {
+        if (!rankingRef) {
+            const ranking = JSON.parse(localStorage.getItem('termoquimica_ranking')) || [];
+            const emailExistente = ranking.some(item => item.email && item.email.toLowerCase() === email.toLowerCase());
+            resolve(emailExistente);
+            return;
+        }
+
+        rankingRef.orderByChild('email').equalTo(email).once('value')
+            .then(snapshot => {
+                resolve(snapshot.exists());
+            })
+            .catch(error => {
+                console.error("Erro ao verificar email:", error);
+                reject(error);
+            });
+    });
+}
+
+function popularFiltroTurmas() {
+    const filtroTurma = document.getElementById('filtro-turma');
+    if (!filtroTurma) return;
+
+    while (filtroTurma.options.length > 1) {
+        filtroTurma.remove(1);
+    }
+
+    if (rankingRef) {
+        rankingRef.once('value')
+            .then(snapshot => {
+                const turmas = new Set();
+
+                snapshot.forEach(childSnapshot => {
+                    const turma = childSnapshot.val().turma;
+                    if (turma) turmas.add(turma);
+                });
+
+                turmas.forEach(turma => {
+                    const option = document.createElement('option');
+                    option.value = turma;
+                    option.textContent = turma;
+                    filtroTurma.appendChild(option);
+                });
+            })
+            .catch(error => {
+                console.error("Erro ao carregar turmas:", error);
+                popularFiltroTurmasLocalStorage();
+            });
+    } else {
+        popularFiltroTurmasLocalStorage();
+    }
+}
+
+function popularFiltroTurmasLocalStorage() {
+    const filtroTurma = document.getElementById('filtro-turma');
+    if (!filtroTurma) return;
+
+    const ranking = JSON.parse(localStorage.getItem('termoquimica_ranking')) || [];
+    const turmas = new Set();
+
+    ranking.forEach(item => {
+        if (item.turma) turmas.add(item.turma);
+    });
+
+    turmas.forEach(turma => {
+        const option = document.createElement('option');
+        option.value = turma;
+        option.textContent = turma;
+        filtroTurma.appendChild(option);
+    });
 }
 
 function mostrarQuestao() {
@@ -378,7 +412,7 @@ function mostrarResultado() {
 
     document.getElementById('numero-acertos').textContent = acertos;
 
-    const tempoTotal = Math.floor((tempoConclusao - tempoInicio) / 1000); 
+    const tempoTotal = Math.floor((tempoConclusao - tempoInicio) / 1000); // em segundos
     const minutos = Math.floor(tempoTotal / 60);
     const segundos = tempoTotal % 60;
 
@@ -388,26 +422,24 @@ function mostrarResultado() {
 
     if (acertos <= 3) {
         feedbackTexto = "Você precisa estudar mais! Reveja as simulações e tente novamente.";
-        feedbackCor = "#f8d7da"; 
+        feedbackCor = "#f8d7da"; // Vermelho claro
     } else if (acertos <= 6) {
         feedbackTexto = "Bom trabalho! Você está no caminho certo, mas ainda pode melhorar.";
-        feedbackCor = "#fff3cd"; // 
+        feedbackCor = "#fff3cd"; // Amarelo claro
     } else if (acertos <= 9) {
         feedbackTexto = "Muito bom! Você domina bem o assunto!";
-        feedbackCor = "#d4edda"; 
+        feedbackCor = "#d4edda"; // Verde claro
         conquistas.push("expert");
     } else {
         feedbackTexto = "Excelente! Você domina completamente o conteúdo de termoquímica!";
-        feedbackCor = "#d1ecf1"; 
+        feedbackCor = "#d1ecf1"; // Azul claro
         conquistas.push("master");
     }
 
-    // Conquistas baseadas no tempo
-    if (tempoTotal < 120 && acertos >= 8) { // Menos de 2 minutos com pelo menos 8 acertos
+    if (tempoTotal < 120 && acertos >= 8) { 
         conquistas.push("speed");
     }
 
-    // Exibir feedback
     const feedbackDiv = document.getElementById('feedback');
     feedbackDiv.innerHTML = `
         <p>${feedbackTexto}</p>
@@ -427,7 +459,6 @@ function mostrarResultado() {
         salvarResultado(conquistas, tempoTotal);
     }
 
-    // Verificar se o usuário se qualifica para certificado
     if (acertos >= 7) {
         adicionarBotaoCertificado();
     }
@@ -465,7 +496,6 @@ function reiniciarQuiz() {
 }
 
 function salvarResultado(conquistas, tempoTotal) {
-    // Verificar se temos dados do usuário
     if (!dadosUsuario) {
         console.error("Dados do usuário não disponíveis para salvar resultado");
         return;
@@ -478,10 +508,9 @@ function salvarResultado(conquistas, tempoTotal) {
         pontuacao: acertos,
         tempoSegundos: tempoTotal,
         conquistas: conquistas,
-        data: Date.now() 
+        data: Date.now() // Timestamp atual
     };
 
-    // Tentar salvar no Firebase
     if (rankingRef) {
         rankingRef.push(resultado)
             .then(() => {
@@ -492,12 +521,10 @@ function salvarResultado(conquistas, tempoTotal) {
                 salvarNoLocalStorage(resultado); // Fallback para localStorage
             });
     } else {
-        // Salvar no localStorage se Firebase não estiver disponível
         salvarNoLocalStorage(resultado);
     }
 }
 
-// Salvar no localStorage como fallback
 function salvarNoLocalStorage(resultado) {
     let ranking = JSON.parse(localStorage.getItem('termoquimica_ranking')) || [];
 
@@ -510,17 +537,14 @@ function salvarNoLocalStorage(resultado) {
         return a.tempoSegundos - b.tempoSegundos;
     });
 
-    // Salvar no localStorage
     localStorage.setItem('termoquimica_ranking', JSON.stringify(ranking));
     console.log("Resultado salvo no localStorage");
 }
 
-// Carregar e exibir o ranking
 function carregarRanking(filtroTurmaValor = 'todas') {
     const rankingBody = document.getElementById('ranking-body');
     if (!rankingBody) return;
 
-    // Mostrar indicador de carregamento
     rankingBody.innerHTML = `
         <tr>
             <td colspan="5" style="text-align: center; padding: 2rem;">
@@ -529,10 +553,8 @@ function carregarRanking(filtroTurmaValor = 'todas') {
         </tr>
     `;
 
-    // Tentar carregar do Firebase
     if (rankingRef) {
-        rankingRef.orderByChild('pontuacao')
-            .once('value')
+        rankingRef.once('value')
             .then(snapshot => {
                 exibirRanking(snapshot, filtroTurmaValor);
             })
@@ -651,11 +673,9 @@ function exibirRanking(snapshot, filtroTurmaValor) {
     });
 }
 
-// Função para gerar certificado
 function gerarCertificado() {
-    if (!dadosUsuario || acertos < 7) return; // Só gera certificado para quem acertou 7 ou mais questões
+    if (!dadosUsuario || acertos < 7) return; 
 
-    // Criar uma nova janela para o certificado
     const certificadoWindow = window.open('', '_blank');
     certificadoWindow.document.write(`
         <!DOCTYPE html>
@@ -787,7 +807,7 @@ function gerarCertificado() {
                 </div>
                 
                 <div class="assinatura">
-                    <div class="assinatura-nome">Leonardo Ribeiro</div>
+                    <div class="assinatura-nome">Verônica da Costa Gonçalves</div>
                     <div>Professor</div>
                 </div>
                 

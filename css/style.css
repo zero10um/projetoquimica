@@ -1,4 +1,3 @@
-/* Estilos Gerais Aprimorados */
 :root {
   --primary-color: #4361ee;
   --secondary-color: #3a0ca3;
@@ -32,10 +31,8 @@ body {
   transition: background-color 0.5s ease, color 0.5s ease;
 }
 
-/* Importando fontes do Google */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Poppins:wght@300;400;500&display=swap');
 
-/* Header e Navegação */
 header {
   background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   color: white;
@@ -109,13 +106,24 @@ nav ul li a:hover {
   transform: translateY(-2px);
 }
 
-nav ul li a.active {
-  background-color: white;
-  color: var(--primary-color);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+body[data-theme="dark"] nav ul li a.active {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: var(--primary-color);
 }
 
-/* Layout Principal */
+body[data-theme="dark"] nav ul {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+body[data-theme="dark"] nav ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+}
+
+body[data-theme="dark"] nav ul li a.active:hover {
+    color: var(--primary-color);
+}
+
 main {
   max-width: 1200px;
   margin: 2.5rem auto;
@@ -173,7 +181,6 @@ p {
   color: #495057;
 }
 
-/* Botões e Links */
 .botao {
   display: inline-block;
   background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
@@ -208,7 +215,6 @@ p {
   flex-wrap: wrap;
 }
 
-/* Estilos da página inicial */
 .introducao {
   position: relative;
   overflow: hidden;
@@ -268,7 +274,6 @@ p {
   margin-left: -1.5rem;
 }
 
-/* Estilos para a página de simulações */
 .simulacao-controles {
   margin: 1.8rem 0;
   padding: 1.2rem;
@@ -355,7 +360,6 @@ p {
   margin-bottom: 1rem;
 }
 
-/* Estilos para o Quiz */
 .quiz-container {
   max-width: 800px;
   margin: 0 auto;
@@ -385,7 +389,11 @@ p {
   margin-right: 10px;
 }
 
-.escondido {
+.escondido, 
+section.escondido, 
+div.escondido, 
+.quiz-container .escondido,
+#erro-email.escondido {
   display: none !important;
 }
 
@@ -406,7 +414,6 @@ p {
   box-shadow: var(--box-shadow);
 }
 
-/* Estilos para a página de reações */
 .tipo-reacao {
   display: flex;
   gap: 1.2rem;
@@ -501,7 +508,6 @@ p {
   font-family: var(--font-heading);
 }
 
-/* Estilos para a página de conteúdo */
 .sumario {
   background: linear-gradient(135deg, rgba(67, 97, 238, 0.05), rgba(76, 201, 240, 0.05));
   padding: 1.8rem;
@@ -713,7 +719,6 @@ p {
   margin-top: 0;
 }
 
-/* Estilos para o sistema de progresso */
 #progresso-container {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(240, 245, 255, 0.9));
   border-radius: var(--border-radius);
@@ -824,7 +829,6 @@ p {
   box-shadow: 0 6px 16px rgba(108, 117, 125, 0.4);
 }
 
-/* Rodapé */
 footer {
   background: linear-gradient(135deg, var(--dark-color), #343a40);
   color: white;
@@ -1115,7 +1119,6 @@ input[type="range"]::-moz-range-thumb:hover {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Adicione ao arquivo CSS */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -1207,7 +1210,6 @@ body[data-theme="dark"] .tema-icon-dark {
   background: rgba(255, 255, 255, 0.3);
 }
 
-/* Estilos do novo footer */
 footer {
   background: linear-gradient(135deg, var(--dark-color), #343a40);
   color: white;
@@ -1318,7 +1320,6 @@ footer {
   padding-top: 2rem;
 }
 
-/* Estilo para os ícones de progresso */
 .progresso-item .icone {
   font-size: 1.2rem;
   margin-right: 0.5rem;
@@ -1337,7 +1338,6 @@ footer {
   color: white;
 }
 
-/* Correções para a barra de progresso no tema escuro */
 body[data-theme="dark"] #progresso-container {
   background: linear-gradient(135deg, rgba(40, 45, 50, 0.9), rgba(30, 35, 40, 0.9));
   border: 1px solid rgba(76, 201, 240, 0.2);
@@ -1372,7 +1372,6 @@ body[data-theme="dark"] .progresso-item.completo .icone {
   color: #e9ecef;
 }
 
-/* Correções para tabs e outros elementos no tema escuro */
 body[data-theme="dark"] .tab-btn {
   background-color: #343a40;
   border-color: #495057;
@@ -1403,7 +1402,6 @@ body[data-theme="dark"] .formula-box {
   background-color: #343a40;
 }
 
-/* Correção para o botão de alternar tema */
 #toggle-tema {
   opacity: 0.9;
   transition: all 0.3s ease;
@@ -1414,7 +1412,6 @@ body[data-theme="dark"] .formula-box {
   transform: scale(1.1);
 }
 
-/* Ajuste para o rodapé no tema escuro */
 body[data-theme="dark"] footer {
   background: linear-gradient(135deg, #212529, #1a1d20);
 }
@@ -1423,7 +1420,6 @@ body[data-theme="dark"] .footer-copyright {
   border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* Transição suave entre temas */
 body {
   transition: background-color 0.5s ease, color 0.5s ease;
 }
@@ -1432,7 +1428,6 @@ body *:not(#toggle-tema) {
   transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
 }
 
-/* Estilo para o botão de reiniciar progresso no tema escuro */
 body[data-theme="dark"] .botao-reiniciar {
   background: linear-gradient(135deg, #495057, #343a40);
   color: #e9ecef;
@@ -1442,7 +1437,6 @@ body[data-theme="dark"] .botao-reiniciar:hover {
   background: linear-gradient(135deg, #343a40, #212529);
 }
 
-/* Ajuste para o hero banner no tema escuro */
 body[data-theme="dark"] .hero-banner {
   border-bottom: 1px dashed rgba(110, 168, 254, 0.2);
 }
@@ -1451,16 +1445,14 @@ body[data-theme="dark"] .subtitle {
   color: #adb5bd;
 }
 
-/* Estilo para links no tema escuro */
 body[data-theme="dark"] a:not(.botao) {
-  color: #6ea8fe;
+  color: white;
 }
 
 body[data-theme="dark"] a:not(.botao):hover {
   color: #a370f7;
 }
 
-/* Estilo para headings no tema escuro */
 body[data-theme="dark"] h2,
 body[data-theme="dark"] h3,
 body[data-theme="dark"] h4 {
@@ -1475,7 +1467,6 @@ body[data-theme="dark"] .aplicacao-card h3 {
   color: #38b000;
 }
 
-/* Ajustes para as cards no tema escuro */
 body[data-theme="dark"] .exotermico {
   background: linear-gradient(135deg, rgba(255, 119, 119, 0.1), rgba(255, 77, 77, 0.2));
   border: 1px solid rgba(255, 77, 77, 0.3);
@@ -1486,7 +1477,6 @@ body[data-theme="dark"] .endotermico {
   border: 1px solid rgba(110, 168, 254, 0.3);
 }
 
-/* Ajustes para alternativas do quiz no tema escuro */
 body[data-theme="dark"] .alternativa {
   border-color: #495057;
 }
@@ -1496,7 +1486,6 @@ body[data-theme="dark"] .alternativa:hover {
   border-color: #6ea8fe;
 }
 
-/* Estilos para as conquistas/badges */
 .conquistas {
     margin-top: 1.5rem;
     padding: 1rem;
@@ -1584,7 +1573,6 @@ body[data-theme="dark"] .alternativa:hover {
     margin-left: 0.5rem;
 }
 
-/* Indicador de carregamento */
 .loading {
     display: flex;
     align-items: center;
@@ -1598,7 +1586,6 @@ body[data-theme="dark"] .alternativa:hover {
     margin-right: 0.5rem;
 }
 
-/* Animação de pulso para elementos carregando */
 @keyframes pulse-loading {
     0% { opacity: 0.6; }
     50% { opacity: 1; }
@@ -1609,7 +1596,6 @@ body[data-theme="dark"] .alternativa:hover {
     animation: pulse-loading 1.5s infinite;
 }
 
-/* Ajustes para tema escuro */
 body[data-theme="dark"] .conquistas {
     background-color: rgba(255, 255, 255, 0.1);
 }
@@ -1618,7 +1604,6 @@ body[data-theme="dark"] .tempo-mini {
     color: #adb5bd;
 }
 
-/* Estilos para o formulário de identificação */
 .identificacao-container {
   text-align: center;
   max-width: 600px;
@@ -1633,6 +1618,27 @@ body[data-theme="dark"] .tempo-mini {
   margin-top: 1.5rem;
   box-shadow: var(--box-shadow);
   text-align: left;
+}
+
+.opcoes-adicionais {
+    margin-top: 20px;
+    text-align: center;
+    border-top: 1px solid #ddd;
+    padding-top: 15px;
+}
+
+.botao-secundario {
+    background-color: #6c757d;
+    color: white;
+}
+
+.botao-secundario:hover {
+    background-color: #5a6268;
+}
+
+.form-acoes {
+    display: flex;
+    justify-content: center;
 }
 
 .form-grupo {
@@ -1673,7 +1679,6 @@ body[data-theme="dark"] .tempo-mini {
   margin-top: 1rem;
 }
 
-/* Estilos para o resultado do quiz */
 .resultado-info {
   display: flex;
   justify-content: center;
@@ -1717,7 +1722,6 @@ body[data-theme="dark"] .tempo-mini {
   margin-top: 2rem;
 }
 
-/* Estilos para o ranking */
 .filtro-ranking {
   display: flex;
   align-items: center;
@@ -1812,95 +1816,6 @@ body[data-theme="dark"] .tempo-mini {
   color: white;
 }
 
-/* Estilos para as conquistas/badges */
-.conquistas {
-    margin-top: 1.5rem;
-    padding: 1rem;
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: var(--border-radius);
-}
-
-.conquistas h4 {
-    margin-bottom: 1rem;
-    font-weight: 600;
-    text-align: center;
-}
-
-.badges-container {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-}
-
-.badge {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.8rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    transition: transform 0.3s ease;
-}
-
-.badge:hover {
-    transform: scale(1.1);
-}
-
-.badge.master {
-    background: linear-gradient(135deg, #FFD700, #FFA500);
-    color: #333;
-}
-
-.badge.expert {
-    background: linear-gradient(135deg, #87CEEB, #4682B4);
-    color: white;
-}
-
-.badge.speed {
-    background: linear-gradient(135deg, #FF6B6B, #FF3D3D);
-    color: white;
-}
-
-.badges-mini {
-    display: flex;
-    gap: 0.3rem;
-    margin-top: 0.3rem;
-}
-
-.badge-mini {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.7rem;
-}
-
-.badge-mini.master {
-    background-color: #FFD700;
-    color: #333;
-}
-
-.badge-mini.expert {
-    background-color: #4682B4;
-    color: white;
-}
-
-.badge-mini.speed {
-    background-color: #FF3D3D;
-    color: white;
-}
-
-.tempo-mini {
-    font-size: 0.8rem;
-    color: var(--gray-color);
-    margin-left: 0.5rem;
-}
-
-/* Estilo para mensagem de erro */
 .mensagem-erro {
     background-color: #f8d7da;
     color: #721c24;
@@ -1917,7 +1832,6 @@ body[data-theme="dark"] .tempo-mini {
     color: #dc3545;
 }
 
-/* Animação para mensagem de erro */
 @keyframes shake {
     0%, 100% { transform: translateX(0); }
     10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
@@ -1926,4 +1840,256 @@ body[data-theme="dark"] .tempo-mini {
 
 .shake {
     animation: shake 0.6s;
+}
+
+@media (max-width: 480px) {
+    /* Ajuste para Quiz */
+    .quiz-container {
+        padding: 1rem;
+    }
+    
+    .identificacao-container {
+        padding: 1rem;
+    }
+    
+    .form-quiz {
+        padding: 1.2rem;
+    }
+    
+    .resultado-card {
+        padding: 1.2rem;
+        min-width: auto;
+        width: 90%;
+    }
+    
+    .resultado-valor {
+        font-size: 3rem;
+    }
+    
+    .resultado-acoes {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+    
+    .ranking-tabela th,
+    .ranking-tabela td {
+        padding: 0.7rem 0.5rem;
+        font-size: 0.8rem;
+    }
+    
+    .ranking-tabela th:nth-child(5),
+    .ranking-tabela td:nth-child(5) {
+        display: none;
+    }
+    
+    #voltar-quiz, #ver-ranking, #refazer-quiz {
+        width: 100%;
+    }
+    
+    .opcoes-adicionais .botao {
+        width: 100%;
+    }
+    
+    .alternativa {
+        padding: 0.8rem;
+    }
+    
+    .alternativa label {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+    
+    nav ul {
+        width: 100%;
+        overflow-x: auto;
+        padding: 0.3rem;
+        justify-content: start;
+    }
+    
+    nav ul li a {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.8rem;
+        white-space: nowrap;
+    }
+    
+    header {
+        padding: 1rem 0 0.5rem;
+    }
+    
+    header h1 {
+        font-size: 1.3rem;
+    }
+    
+    .form-grupo label {
+        font-size: 0.9rem;
+    }
+    
+    .form-grupo input, 
+    .form-grupo select {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.9rem;
+    }
+    
+    .botao {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.9rem;
+    }
+    
+    .badge {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+    
+    .badges-container {
+        flex-wrap: wrap;
+    }
+}
+
+.escondido, 
+section.escondido, 
+div.escondido, 
+.quiz-container .escondido,
+#erro-email.escondido,
+#identificacao-quiz.escondido,
+#resultado-quiz.escondido,
+#ranking-container.escondido,
+#questao-container.escondido {
+    display: none !important;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+#identificacao-quiz:not(.escondido),
+#resultado-quiz:not(.escondido),
+#ranking-container:not(.escondido),
+#questao-container:not(.escondido) {
+    animation: fadeInScale 0.3s ease-out;
+}
+
+.botao-secundario {
+    background: linear-gradient(135deg, #6c757d, #495057);
+    color: white;
+    box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+}
+
+.botao-secundario:hover {
+    background: linear-gradient(135deg, #495057, #343a40);
+    box-shadow: 0 6px 16px rgba(108, 117, 125, 0.4);
+}
+
+.opcoes-adicionais {
+    margin-top: 20px;
+    text-align: center;
+    border-top: 1px solid #ddd;
+    padding-top: 15px;
+}
+
+.progresso-quiz-barra {
+    position: relative;
+    overflow: hidden;
+}
+
+.progresso-quiz-barra::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        90deg, 
+        rgba(255, 255, 255, 0) 0%, 
+        rgba(255, 255, 255, 0.4) 50%, 
+        rgba(255, 255, 255, 0) 100%
+    );
+    animation: shimmer 2s infinite;
+    z-index: 1;
+}
+
+body[data-theme="dark"] .form-quiz {
+    background-color: #343a40;
+    border-color: #495057;
+}
+
+body[data-theme="dark"] .form-grupo label {
+    color: #6ea8fe;
+}
+
+body[data-theme="dark"] .form-grupo input,
+body[data-theme="dark"] .form-grupo select {
+    background-color: #2b3035;
+    border-color: #495057;
+    color: #e9ecef;
+}
+
+body[data-theme="dark"] .form-grupo input::placeholder {
+    color: #6c757d;
+}
+
+body[data-theme="dark"] .resultado-card {
+    background: linear-gradient(135deg, #3d5a80, #2c3e50);
+}
+
+body[data-theme="dark"] .mensagem-erro {
+    background-color: rgba(220, 53, 69, 0.2);
+    color: #f8d7da;
+    border-color: rgba(220, 53, 69, 0.3);
+}
+
+body[data-theme="dark"] .opcoes-adicionais {
+    border-top-color: #495057;
+}
+
+body[data-theme="dark"] .ranking-tabela th {
+    background-color: #3d5a80;
+}
+
+body[data-theme="dark"] .ranking-tabela tr:nth-child(even) {
+    background-color: #343a40;
+}
+
+body[data-theme="dark"] .ranking-tabela tr:hover {
+    background-color: rgba(110, 168, 254, 0.1);
+}
+
+body[data-theme="dark"] .ranking-tabela td,
+body[data-theme="dark"] .ranking-tabela th {
+    border-color: #495057;
+}
+
+body[data-theme="dark"] .ranking-tabela .top-1 {
+    background-color: rgba(255, 215, 0, 0.1);
+}
+
+body[data-theme="dark"] .ranking-tabela .top-2 {
+    background-color: rgba(192, 192, 192, 0.1);
+}
+
+body[data-theme="dark"] .ranking-tabela .top-3 {
+    background-color: rgba(205, 127, 50, 0.1);
+}
+
+body[data-theme="dark"] .loading {
+    color: #6ea8fe;
+}
+
+.form-grupo input:focus,
+.form-grupo select:focus {
+    animation: inputFocus 0.3s ease-out;
+}
+
+@keyframes inputFocus {
+    0% { box-shadow: 0 0 0 0 rgba(67, 97, 238, 0.4); }
+    70% { box-shadow: 0 0 0 5px rgba(67, 97, 238, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(67, 97, 238, 0); }
 }
